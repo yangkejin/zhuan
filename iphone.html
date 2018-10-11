@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script src="lib/jquery-3.3.1.min.js"></script>
+		<script src="lib/iscroll/iscroll-probe.js"></script>
+		<script src="lib/vue.min.js"></script>
+		<link href="css/reset.css" rel="stylesheet" />
+
+		<style>
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				font-size: 15px;
+			}
+			
+			.header {
+				position: absolute;
+				height: 49px;
+				line-height: 49px;
+				font-size: 18px;
+				width: 100%;
+				text-align: center;
+				color: white;
+				background-color: #2a68cd;
+				z-index: 1001;
+			}
+			
+			#wrapper {
+				width: 100%;
+				text-align: center;
+				overflow: hidden;
+				position: absolute;
+				top: 49px;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+			
+			#scroller_ul {
+				text-align: left;
+			}
+			
+			.item_header {
+				text-align: center;
+				font-size: 22px;
+				padding-bottom: 18px;
+				padding-top: 18px;
+			}
+			
+			.line {
+				font-size: 0;
+				min-height: 80px;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+			}
+			
+			.line_img_div {
+				margin-left: 10px;
+				width: 60px;
+				height: 60px;
+				line-height: 80px;
+				text-align: center;
+				display: inline-block;
+				float: left;
+			}
+			
+			.line_img {}
+			
+			.line_text {
+				margin-left: 10px;
+				height: 100%;
+				width: -webkit-calc(100% - 130px);
+				font-size: 18px;
+				display: inline-block;
+			}
+			
+			.line_text div {
+				height: 50%;
+			}
+			
+			.name {
+				margin-top: 10px;
+			}
+			
+			.description {
+				margin-top: 6px;
+				word-wrap: break-word;
+				font-size: 12px;
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header">
+			<span id="header_title">苹果平台</span>
+		</div>
+		<div id="wrapper">
+			<div id="scroller">
+				<ul id="scroller_ul">
+					<li class="item" v-for="item in list">
+						<div class="item_header">
+							{{item.title}}
+						</div>
+						<ul class="line_ul">
+							<li class="line" v-for="item2 in item.list" v-on:click="item2Click(item2)">
+								<div class="line_img_div"> 
+									<img class="line_img" v-bind:src="bindImg(item2.icon)" width="60px" />
+								</div>
+								<div class="line_text">
+									<div class="name">{{item2.name}}</div>
+									<div class="description">{{item2.description}}</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init();
+			document.getElementById("scroller_ul").style.minHeight = ($("#wrapper").height() + 1) + "px";
+			var myScroll = new IScroll('#wrapper', {
+				tap: true,
+				scrollbars: true,
+				mouseWheel: true,
+				interactiveScrollbars: true,
+				shrinkScrollbars: 'scale',
+				fadeScrollbars: true,
+				probeType: 2,
+				preventDefaultException: {
+					tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|A)$/
+				}
+			});
+			mui.ready(function() {
+				var app = new Vue({
+					el: "#scroller_ul",
+					data: {
+						list: []
+					},
+					methods: {
+						bindImg:function(icon) {
+							return "img/"+icon;
+						},
+						item2Click:function(item2) {
+							window.location.href = item2.href;
+						}
+					}
+				});
+				mui.getJSON("js/data.json", null, function(data) {
+					console.log(data);
+					app.list = data;
+					Vue.nextTick(function() {
+						setTimeout(function() {
+							myScroll.refresh();
+						}, 0);
+					})
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

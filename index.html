@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<script src="lib/TabBar.js"></script>
+		<script src="lib/jquery-3.3.1.min.js"></script>
+
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			#nav {
+				background-color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav id="nav" class="mui-bar mui-bar-tab">
+		</nav>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			console.log(location.search);
+			var tabbar = new tabbar();
+			tabbar.subpages = ['iphone.html', 'android.html', 'novice.html', 'about_us.html'];
+			tabbar.SelectTextColor = ['black', 'black', 'black', 'black'];
+			tabbar.UnSelectTextColor = ['black', 'black', 'black', 'black'];
+			tabbar.SelectBgColor = ['#ececec', '#ececec', '#ececec', '#ececec'];
+			tabbar.UnSelectBgColor = ['rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)'];
+			tabbar.Titles = ['苹果', '安卓', '新手', '关于'];
+			tabbar.SelectImages = ['img/ios.png', 'img/andorid.png', 'img/novice.png', 'img/about_us.png'];
+			tabbar.UnSelectImages = ['img/ios.png', 'img/andorid.png', 'img/novice.png', 'img/about_us.png'];
+			tabbar.defaultSelectIndex = 2; 
+			tabbar.init();
+			tabbar.showTabBar();  
+			
+			tabbar.clickCallBack = function(id) {
+				console.log(id);
+			}
+		</script>
+	</body>
+</html>
