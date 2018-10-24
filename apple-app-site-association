@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "286FM9DZNL.com.suncere.HuBei.iosApp",
+                "paths": [ "/zhuan/*" ]
+            }
+        ]
+    }
+}
